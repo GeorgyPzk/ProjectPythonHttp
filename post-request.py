@@ -11,6 +11,13 @@ new_data = {
 # The API endpoint to communicate with
 url_post = "https://jsonplaceholder.typicode.com/posts"
 
+get_response = requests.get(url_post)
+if get_response.status_code == 200:
+    print('Success!')
+elif get_response.status_code != 200:
+    print('Error!')
+    print(get_response.status_code)
+
 # A POST request to tthe API
 post_response = requests.post(url_post, json=new_data)
 
