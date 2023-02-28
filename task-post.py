@@ -24,7 +24,7 @@ new_data = {
 }
 
 # The API endpoint to communicate with
-url_post = "http://lampvideo.ru/api/v1/telemetry.php"
+url_post = "http://google.com"
 
 get_response = requests.get(url_post)
 if get_response.status_code == 200:
