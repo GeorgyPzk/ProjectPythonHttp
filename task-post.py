@@ -6,7 +6,7 @@ from mysql.connector import Error
 import time
 import configparser
 
-index='72'
+index='testValue'
 
 #Read from .ini file
 config = configparser.ConfigParser()
@@ -24,7 +24,7 @@ new_data = {
 }
 
 # The API endpoint to communicate with
-url_post = "http://google.com"
+url_post = "http://test.ru/api/v1/telemetry.php"
 
 get_response = requests.get(url_post)
 if get_response.status_code == 200:
@@ -61,7 +61,7 @@ try:
         #print("You're connected to database: ", record)
 
         #Select
-        cursor.execute(f"SELECT telemetry FROM lampdb2.Telemetry WHERE musicbox_id = '284' AND telemetry = '\"{index}\"' ORDER BY id DESC LIMIT 1;")
+        cursor.execute("SELECT telemetry FROM lampdb2.Telemetry WHERE musicbox_id = '284' AND telemetry = '\"%s\"' ORDER BY id DESC LIMIT 1;" % index)
         myresult = cursor.fetchall()
         y=0
         for x in myresult:
@@ -70,9 +70,9 @@ try:
         if y == 1:
             print("DB filled. Post query work.")
         else:
-            print(f"The data has not been recorded in the database. Post query did not work. y={y}")
+            print("The data has not been recorded in the database. Post query did not work. y=%s" % index)
         #Delite
-        cursor.execute("DELETE FROM lampdb2.Telemetry WHERE musicbox_id = '284' AND telemetry = '\"72\"';")
+        cursor.execute("DELETE FROM lampdb2.Telemetry WHERE musicbox_id = '284' AND telemetry = '\"%s\"';" % index)
         connection.commit()
 
 except Error as e:
